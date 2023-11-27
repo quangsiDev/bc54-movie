@@ -1,14 +1,26 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css";
+import App from "./App";
+import reportWebVitals from "./reportWebVitals";
+import { Provider } from "react-redux";
+import { combineReducers, configureStore, createStore } from "@reduxjs/toolkit";
+import { userReducer } from "./redux/reducer/reducer";
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById("root"));
+
+let store = configureStore({
+  reducer: {
+    userReducer,
+  },
+});
+// let store = createStore(combineReducers({ userReducer }));
+// configureStore : ko cần tạo rootReducer và có sẵn redux dev tool
+
 root.render(
-  <React.StrictMode>
+  <Provider store={store}>
     <App />
-  </React.StrictMode>
+  </Provider>
 );
 
 // If you want to start measuring performance in your app, pass a function
