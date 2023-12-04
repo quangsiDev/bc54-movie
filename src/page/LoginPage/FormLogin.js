@@ -9,7 +9,7 @@ const FormLogin = () => {
   let dispatch = useDispatch();
   let navigate = useNavigate();
 
-  const onFinish = (values) => {
+  const onFinishV2 = (values) => {
     https
       .post("/api/QuanLyNguoiDung/DangNhap", values)
       .then((res) => {
@@ -32,9 +32,11 @@ const FormLogin = () => {
       });
     console.log("Success:", values);
   };
+  const onFinish = (values) => {};
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
   };
+
   return (
     <Form
       name="basic"
@@ -53,6 +55,7 @@ const FormLogin = () => {
       onFinish={onFinish}
       onFinishFailed={onFinishFailed}
       autoComplete="off"
+      className="w-1/2"
     >
       <Form.Item
         label="Username"

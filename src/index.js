@@ -4,18 +4,29 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { Provider } from "react-redux";
-import { combineReducers, configureStore, createStore } from "@reduxjs/toolkit";
+import { combineReducers } from "@reduxjs/toolkit";
 import { userReducer } from "./redux/reducer/reducer";
 
+import { createStore, applyMiddleware, compose } from "redux";
+import thunk from "redux-thunk";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
-let store = configureStore({
-  reducer: {
-    userReducer,
-  },
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+let rootReducer = combineReducers({
+  userReducer,
 });
-// let store = createStore(combineReducers({ userReducer }));
-// configureStore : ko cần tạo rootReducer và có sẵn redux dev tool
+const store = createStore(
+  rootReducer,
+  /* preloadedState, */ composeEnhancers(applyMiddleware(thunk))
+);
+
+// let store = createStore(rootReducer);
+
+// let store = configureStore({
+//   reducer: {
+//     userReducer,
+//   },
+// });
 
 root.render(
   <Provider store={store}>
