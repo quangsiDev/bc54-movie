@@ -4,6 +4,7 @@ import { https } from "../../service/config";
 import { useDispatch } from "react-redux";
 import { SET_INFO } from "../../redux/constant/user";
 import { useNavigate } from "react-router-dom";
+import { loginAction } from "../../redux/action/user";
 
 const FormLogin = () => {
   let dispatch = useDispatch();
@@ -18,13 +19,13 @@ const FormLogin = () => {
         localStorage.setItem("USER_INFO", dataJson);
 
         message.success("Login thành công");
-        // chuyển hướng về trang chủ
-        navigate("/");
-        // đẩy thông tin user lên redux
         dispatch({
           type: SET_INFO,
           payload: res.data.content,
         });
+        // chuyển hướng về trang chủ
+        navigate("/");
+        // đẩy thông tin user lên redux
       })
       .catch((err) => {
         message.error("Đã có lỗi xảy ra");
@@ -32,7 +33,9 @@ const FormLogin = () => {
       });
     console.log("Success:", values);
   };
-  const onFinish = (values) => {};
+  const onFinish = (values) => {
+    dispatch(loginAction(values, navigate));
+  };
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
   };

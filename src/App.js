@@ -6,10 +6,12 @@ import LoginPage from "./page/LoginPage/LoginPage";
 import Header from "./components/Header/Header";
 import DetailPage from "./page/DetailPage/DetailPage";
 import HomeLayout from "./layout/HomeLayout";
+import Spinner from "./components/Spinner/Spinner";
 
 function App() {
   return (
     <div>
+      <Spinner />
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<HomeLayout />}>
